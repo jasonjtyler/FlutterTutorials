@@ -43,7 +43,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
     final List<Note> updatedNotes = List.from((state as NotesLoaded).notes)
       ..map((x) => x.id == event.updatedNote.id ? event.updatedNote : x);
 
-    yield NotesLoaded(updatedNotes);
+    yield NotesLoaded(updatedNotes, _anyNotesSelected(updatedNotes));
   }
 
   Stream<NotesState> _mapDeleteNoteToState(DeleteNote event) async* {
@@ -58,6 +58,10 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
     final List<Note> updatedNotes = List.from((state as NotesLoaded).notes);
 
     yield NotesLoaded(updatedNotes);
+  }
+
+  bool _anyNotesSelected(List<Note> notes) {
+    return notes.where((x) => x.isSelected).length > 0;
   }
 
 }

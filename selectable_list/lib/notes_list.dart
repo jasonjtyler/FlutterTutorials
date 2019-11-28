@@ -15,7 +15,10 @@ class NotesList extends StatelessWidget {
           return const Text('Loading...');
         } else if (state is NotesLoaded) {
           var notes = state.notes;
-          return ListView.builder(
+          return Column(children: <Widget>[
+            state.anySelected ? const Text('Items Selected!') : const Text('Nothing selected'), 
+            ListView.builder(
+            shrinkWrap: true,
             itemCount: notes.length,
             itemBuilder: (BuildContext context, int index) {
               final note = notes[index];
@@ -35,7 +38,7 @@ class NotesList extends StatelessWidget {
                 )
               );
             }
-          );
+          )]);
         } else {
           return const Text('Unknown state.');
         }
