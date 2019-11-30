@@ -22,20 +22,26 @@ class NotesList extends StatelessWidget {
             itemCount: notes.length,
             itemBuilder: (BuildContext context, int index) {
               final note = notes[index];
-              return Card(
-                child: Padding(
-                  padding: EdgeInsets.all(10), 
-                  child: Row(children: <Widget>[
-                    GestureDetector(
-                      onTap:() { 
-                        note.isSelected = !note.isSelected;
-                        BlocProvider.of<NotesBloc>(context).add(UpdateNote(note));
-                      },
-                      child: note.isSelected ? Icon(Icons.check_circle): Icon(Icons.check_circle_outline)
-                    ),
-                    Padding(padding: EdgeInsets.fromLTRB(5, 0, 0, 0), child: Text(note.item.text))
-                  ])
-                )
+              return  Dismissible(
+                key: Key(note.item.id.toString()),
+                child: Card(
+                  child: Padding(
+                    padding: EdgeInsets.all(10), 
+                    child: Row(children: <Widget>[
+                      GestureDetector(
+                        onTap:() { 
+                          note.isSelected = !note.isSelected;
+                          BlocProvider.of<NotesBloc>(context).add(UpdateNote(note));
+                        },
+                        child: note.isSelected ? Icon(Icons.check_circle): Icon(Icons.check_circle_outline)
+                      ),
+                      Padding(padding: EdgeInsets.fromLTRB(5, 0, 0, 0), child: Text(note.item.text))
+                    ])
+                  )
+              ),
+              onDismissed: (direction) {
+                BlocProvider.of<NotesBloc>(context).add(DeleteNote(note));
+              }
               );
             }
           )]);

@@ -34,24 +34,24 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
   }
 
   Stream<NotesState> _mapAddNoteToState(AddNote event) async* {
-    List<ListItem<Note>> loadedNotes = List.from((state as NotesLoaded).notes)
+    List<ListItem<Note>> loadedNotes = List<ListItem<Note>>.from((state as NotesLoaded).notes)
       ..add(event.note);
 
     yield NotesLoaded(loadedNotes);
   }
 
   Stream<NotesState> _mapUpdateNoteToState(UpdateNote event) async* {
-    List<ListItem<Note>> updatedNotes = List.from((state as NotesLoaded).notes)
-      ..map((x) => x.item.id == event.updatedNote.item.id ? event.updatedNote : x)
-      ..toList();
+    List<ListItem<Note>> updatedNotes = List<ListItem<Note>>.from((state as NotesLoaded).notes)
+      .map((x) => x.item.id == event.updatedNote.item.id ? event.updatedNote : x)
+      .toList();
 
     yield NotesLoaded(updatedNotes, _anyNotesSelected(updatedNotes));
   }
 
   Stream<NotesState> _mapDeleteNoteToState(DeleteNote event) async* {
-    List<ListItem<Note>> updatedNotes = List.from((state as NotesLoaded).notes)
-      ..where((x) => x.item.id != event.note.item.id)
-      ..toList();
+    List<ListItem<Note>> updatedNotes = List<ListItem<Note>>.from((state as NotesLoaded).notes)
+      .where((x) => x.item.id != event.note.item.id)
+      .toList();
     
     yield NotesLoaded(updatedNotes);
   }
