@@ -1,4 +1,5 @@
 import 'note.dart';
+import 'list_item.dart';
 
 abstract class NotesState {
   const NotesState();
@@ -8,7 +9,7 @@ abstract class NotesState {
 class NotesLoading extends NotesState {}
 
 class NotesLoaded extends NotesState {
-  final List<Note> notes;
+  final List<ListItem<Note>> notes;
   final bool anySelected;
 
   const NotesLoaded([this.notes = const[], this.anySelected = false]);

@@ -33,7 +33,7 @@ class NotesList extends StatelessWidget {
                       },
                       child: note.isSelected ? Icon(Icons.check_circle): Icon(Icons.check_circle_outline)
                     ),
-                    Padding(padding: EdgeInsets.fromLTRB(5, 0, 0, 0), child: Text(note.text))
+                    Padding(padding: EdgeInsets.fromLTRB(5, 0, 0, 0), child: Text(note.item.text))
                   ])
                 )
               );
