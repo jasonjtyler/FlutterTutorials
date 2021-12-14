@@ -23,26 +23,27 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// I put this here to instatiate the user input so there is a place to store that data
+// I put this here to instantiate the user input so there is a place to store that data
+// class userInput {
+//   final String? name;
+//   final int? age;
+
+//
+// }
+
 class userInput {
-  final String? name;
-  final int? age;
-
-  userInput({this.name, this.age});
-}
-
-
-void inputconcat() {
   final nameController = TextEditingController;
-  final ageController = TextEditingController;
+  // final ageController = TextEditingController;
 }
 
-//I think I fucked up. since we're receiving 2 data points, a Map would probably have been a better choice... But since I'm creating a List, I will concatenate the entries
-late List<userInput?> userInputlist;
+//I think I fucked up. since I made it receive 2 data points, a Map would probably have been a better choice...  But since I'm creating a List, I will concatenate the entries
+late List<String?> userInputlist;
 
 class HomePage extends StatelessWidget {
   // I'm commenting out the below text because I don't really know what it does.
   //const Placeholder({Key? key}) : super(key: key);
+
+  final nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -58,14 +59,16 @@ class HomePage extends StatelessWidget {
             children: <Widget>[
               TextField(
                 decoration: InputDecoration(labelText: "Enter Name"),
-                controller: (nameController),
+                controller: nameController,
               ),
-              TextField(
-                decoration: InputDecoration(labelText: "Enter Age"),
-                controller: (ageController),
-              ),
+              // TextField(
+              //   decoration: InputDecoration(labelText: "Enter Age"),
+              //   controller: (ageController),
+              // ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  userInputlist.add(nameController);
+                },
                 child: Text('Submit'),
               ),
             ],
