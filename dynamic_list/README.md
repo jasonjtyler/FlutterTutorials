@@ -1,16 +1,11 @@
 # dynamic_list
 
-A new Flutter project.
+A single page application that contains a list and a button. Every time the button is pressed, a new item is added to the list. To keep this project simple, each addition to the list can be static. It does not require user input. For example, each item the list could simply be the text "List Item".
 
-## Getting Started
+## Add Button
 
-This project is a starting point for a Flutter application.
+The button in the application will be at the top of the screen. It will be labeled "Add". The click event handler for this button will add a new item to the list.
 
-A few resources to get you started if this is your first Flutter project:
+## List
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The list will be created with the ListView widget. The items within the list will be ListTiles, with the header set to the list text. Subtitle will be unset.
