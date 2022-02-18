@@ -1,75 +1,95 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/material.dart';
+import 'dart:math' as math;
 
-//project for a dynamic list. Basically just a list with a button, press the button and it adds another item to the list.
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  // I'm commenting out the below text because I don't really know what it does.
-  //const MyApp({Key? key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Dynamic List',
+      title: 'Suck It, Jason',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(),
+      home: const MyHomePage(title: 'growable list app'),
     );
   }
 }
 
-// I put this here to instantiate the user input so there is a place to store that data
-// class userInput {
-//   final String? name;
-//   final int? age;
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
 
-//
-// }
+  final String title;
 
-class userInput {
-  final nameController = TextEditingController;
-  // final ageController = TextEditingController;
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
-//I think I fucked up. since I made it receive 2 data points, a Map would probably have been a better choice...  But since I'm creating a List, I will concatenate the entries
-late List<String?> userInputlist;
+class _MyHomePageState extends State<MyHomePage> {
+  int _counter = 0;
 
-class HomePage extends StatelessWidget {
-  // I'm commenting out the below text because I don't really know what it does.
-  //const Placeholder({Key? key}) : super(key: key);
+  final _textController = TextEditingController();
 
-  final nameController = TextEditingController();
+  final List<String> userInput = <String>[];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Pointless app bar'),
-      ),
-      body: Center(
-        child: Container(
-          height: MediaQuery.of(context).size.height * .5,
-          width: MediaQuery.of(context).size.width * .8,
+      body: Padding(
+        padding: EdgeInsets.all(20),
+        child: Center(
           child: Column(
-            children: <Widget>[
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              //
+              //Text Display
+              Expanded(
+                  child: Center(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: userInput.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      color:
+                          Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
+                              .withOpacity(1.0),
+                      height: 20,
+                      child: Center(
+                        child: Text(
+                          userInput[index],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              )),
+
+              // Text Input
               TextField(
-                decoration: InputDecoration(labelText: "Enter Name"),
-                controller: nameController,
+                controller: _textController,
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(), hintText: 'Enter text here'),
               ),
-              // TextField(
-              //   decoration: InputDecoration(labelText: "Enter Age"),
-              //   controller: (ageController),
-              // ),
-              TextButton(
+
+              //Submit button
+              MaterialButton(
                 onPressed: () {
-                  userInputlist.add(nameController);
+                  setState(
+                    () {
+                      userInput.add(_textController.text);
+                    },
+                  );
                 },
-                child: Text('Submit'),
+                color: Colors.blue,
+                child: const Text(
+                  'Submit',
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ],
           ),
